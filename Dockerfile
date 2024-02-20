@@ -10,7 +10,11 @@ RUN chmod g+rwx /var/cache/nginx /var/run /var/log/nginx && \
     # comment user directive as master process is run as user in OpenShift anyhow
     sed -i.bak 's/^user/#user/' /etc/nginx/nginx.conf && \
     # Increase the number of worker connections per process
-    sed -i 's/worker_connections\s*1024/worker_connections 10240/' /etc/nginx/nginx.conf
+    sed -i 's/worker_connections\s*1024/worker_connections 10240/' /etc/nginx/nginx.conf && \
+    apk add apache2-utils && \
+    mkdir -p /etc/nginx/secret/ && \
+    chown nginx.root /etc/nginx/secret/ && \
+    chmod g+w /etc/nginx/secret/
 
 WORKDIR /usr/share/nginx/html/
 EXPOSE 8081

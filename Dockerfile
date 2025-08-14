@@ -2,7 +2,7 @@ FROM nginx:alpine
 
 # support running as arbitrary user which belogs to the root group
 RUN chmod g+rwx /var/cache/nginx /var/run /var/log/nginx && \
-    chown nginx.root /var/cache/nginx /var/run /var/log/nginx && \
+    chown nginx:root /var/cache/nginx /var/run /var/log/nginx && \
     # users are not allowed to listen on priviliged ports
     sed -i.bak 's/listen\(.*\)80;/listen 8081;/' /etc/nginx/conf.d/default.conf && \
     # Make /etc/nginx/html/ available to use
